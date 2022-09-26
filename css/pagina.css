@@ -1,0 +1,19 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+.pagina__titulo
+{
+    padding: 0.5rem;
+    text-align: center;
+}
+
+#tela
+{
+    border: 1px solid #000;
+    display:block;
+    margin: 0 auto;
+}
+
