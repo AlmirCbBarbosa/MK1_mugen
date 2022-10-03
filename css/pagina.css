@@ -4,16 +4,47 @@
     padding: 0;
 }
 
-.pagina__titulo
+#pagina
 {
+    background-color: #000;
+    height: 100vh;
+}
+
+.pagina__titulo
+{    
+    color: #f00;
     padding: 0.5rem;
     text-align: center;
 }
 
+#conteiner
+{
+    position: relative;
+}
+
 #tela
 {
-    border: 1px solid #000;
+    border: 1px solid #f00;
     display:block;
     margin: 0 auto;
 }
 
+#iniciar
+{
+    background-color: #f00;
+    border: none;
+    border-radius: 10px;
+    color: #fff;    
+    font-size: 1rem;
+    margin: 1rem auto;
+    padding: 1rem 50px;
+    position: absolute;
+    top: calc(301px - 1.5rem);
+    left: calc(559px - 156.5px);
+}
+
+#iniciar:hover
+{
+    background-color: rgb(161, 6, 6);
+    cursor: pointer;    
+}
