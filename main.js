@@ -1,6 +1,8 @@
+import {tela} from "./scripts/classes/tela.js";
+
 (function()
-{  
-  //configurando o canvas -----------------------------------------------------
+{ 
+    //configurando o canvas -----------------------------------------------------
     const canvas = document.getElementById('tela'); // armazenado o elemento canvas em uma variável
     const ctx = canvas.getContext("2d"); // contexto 2d
 
@@ -26,42 +28,23 @@
     const somMK1 = new Audio('./arquivos/telas/MK1_mugen/MK1_tema.mp3');
     //-----------------------------------------------------------------------------
     
-    //criando objetos da tela------------------------------------------------------
-    const telaLogo =
-    {
-        imagem: imagemLogo,
-        som: somLogo,
-        situacao: 0, // 0- não executado, 1-em execução, 2- executado
-        reproduzir: 1 // 0- não reproduzir, 1- reproduzir
-    };
+    // criando as instacias da classe tela----------------------------------------------
+    const telaLogo = new tela(imagemLogo, somLogo);
+    const telaMK1 = new tela(imagemMK1, somMK1);   
 
-    const telaMK1 =
-    {
-        imagem: imagemMK1,
-        som: somMK1,
-        situacao: 0, // 0- não executado, 1-em execução, 2- executado
-        reproduzir: 0 // 0- não reproduzir, 1- reproduzir
-    };
-    //-----------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
     //DOM-------------------------------------------------------------------------
     const botaoIniciar = document.getElementById('iniciar');
 
-
-
     //variaveis comuns ---------------------------------------------------------
     let jogoStatus = 'inicial' //inicial,game,fim
-
-    //Ouvidores------------------------------------------------
-    telaLogo.som.addEventListener('ended',()=>
-    {
-        telaLogo.situacao = 2;
-        telaMK1.reproduzir = 1;
-    });
-    //---------------------------------------------------------
-
-
-    function loopGame()
+    //---------------------------------------------------------------------
+    
+    
+    
+        
+   function loopGame()
     {
         atualizarGame();
         renderizarGame();
@@ -77,20 +60,14 @@
         switch (jogoStatus)
         {
             case 'inicial':
-                if(telaLogo.situacao == 0 && telaLogo.reproduzir == 1)
+                if(telaLogo.estado == 'nao_reproduzido')
                 {
-                    ctx.drawImage(telaLogo.imagem, 0, 0, canvas.width, canvas.height);
-                    telaLogo.som.play();
-                    telaLogo.situacao = 1;
-                    telaLogo.reproduzir = 0;
+                    telaLogo.reproduzir(ctx, 0, 0, canvas.width, canvas.height);
                 }
 
-                if(telaMK1.situacao == 0 && telaMK1.reproduzir == 1)
+                if(telaMK1.estado == 'nao_reproduzido' && telaLogo.estado == 'reproduzido')
                 {
-                    ctx.drawImage(telaMK1.imagem, 0, 0, canvas.width, canvas.height);
-                    telaMK1.som.play();
-                    telaMK1.situacao = 1;
-                    telaMK1.reproduzir = 0;
+                    telaMK1.reproduzir(ctx, 0, 0, canvas.width, canvas.height);
                 }
         }
 
@@ -101,5 +78,5 @@
     {   
         botaoIniciar.style.display = 'none';
         loopGame();
-    })
-}());
+    }) 
+}()); 
